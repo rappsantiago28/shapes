@@ -114,6 +114,27 @@ public class DrawingBoard extends View {
         return true;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        clear();
+    }
+
+    public void clear() {
+        if (null != mShapes && !mShapes.isEmpty()) {
+            mShapes.clear();
+        }
+
+        if (null != mCurrentShape) {
+            mCurrentShape = null;
+        }
+
+        mDownX = 0;
+        mDownY = 0;
+
+        invalidate();
+    }
+
     private ShapeDrawable createRandomShape(int x, int y, int alpha) {
         int randomColor = mRandom.nextInt(MAX_COLORS) + 1;
         ShapeDrawable shape = new ShapeDrawable(new RectShape());
